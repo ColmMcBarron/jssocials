@@ -134,16 +134,14 @@
       color: #cc7a00; }
 
 .jssocials-share-link {
-  -webkit-transition: color 200ms ease-in-out;
-          transition: color 200ms ease-in-out; }
+  transition: color 200ms ease-in-out; }
   .jssocials-share-link.jssocials-share-link-count .jssocials-share-count {
     font-size: .5em; }
 
 .jssocials-share-label {
   font-size: 0.8em;
   color: #444;
-  -webkit-transition: color 200ms ease-in-out;
-          transition: color 200ms ease-in-out; }
+  transition: color 200ms ease-in-out; }
 
 .jssocials-share-count-box {
   margin-left: 0.3em;

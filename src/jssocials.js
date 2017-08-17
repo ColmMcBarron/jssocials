@@ -183,6 +183,8 @@
                 }
             });
 
+            $result.prop('title', share.title || share.label);
+
             return $result;
         },
 
