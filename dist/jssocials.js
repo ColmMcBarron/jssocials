@@ -1,4 +1,4 @@
-/*! jssocials - v1.5.0 - 2017-04-30
+/*! jssocials - v1.5.0 - 2017-08-17
 * http://js-socials.com
 * Copyright (c) 2017 Artem Tabalin; Licensed MIT */
 (function(window, $, undefined) {
@@ -78,7 +78,7 @@
 
         _initDefaults: function() {
             this.url = window.location.href;
-            this.text = $.trim($("meta[name=description]").attr("content") || $("title").text());
+            this.text = $.trim($("meta[name=description]").attr("content") || $(document).prop("title"));
         },
 
         _initShares: function() {
@@ -185,6 +185,8 @@
                     $result.on(event, $.proxy(handler, share));
                 }
             });
+
+            $result.prop('title', share.title || share.label);
 
             return $result;
         },
@@ -411,6 +413,10 @@
             return $("<a>").attr({ target: "_blank", href: args.shareUrl });
         },
 
+        top: function(args) {
+            return $("<a>").attr({ target: "_top", href: args.shareUrl });
+        },
+
         self: function(args) {
             return $("<a>").attr({ target: "_self", href: args.shareUrl });
         }
@@ -435,7 +441,7 @@
             logo: "fa fa-at",
             shareUrl: "mailto:{to}?subject={text}&body={url}",
             countUrl: "",
-            shareIn: "self"
+            shareIn: "top"
         },
 
         twitter: {
@@ -452,16 +458,6 @@
             countUrl: "https://graph.facebook.com/?id={url}",
             getCount: function(data) {
                 return data.share && data.share.share_count || 0;
-            }
-        },
-
-        vkontakte: {
-            label: "Like",
-            logo: "fa fa-vk",
-            shareUrl: "https://vk.com/share.php?url={url}&title={title}&description={text}",
-            countUrl: "https://vk.com/share.php?act=count&index=1&url={url}",
-            getCount: function(data) {
-                return parseInt(data.slice(15, -2).split(', ')[1]);
             }
         },
 
@@ -502,12 +498,11 @@
             }
         },
 
-        telegram: {
-            label: "Telegram",
-            logo: "fa fa-telegram",
-            shareUrl: "tg://msg?text={url} {text}",
-            countUrl: "",
-            shareIn: "self"
+        pocket: {
+            label: "Pocket",
+            logo: "fa fa-get-pocket",
+            shareUrl: "https://getpocket.com/save?url={url}&title={title}",
+            countUrl: ""
         },
 
         whatsapp: {
@@ -515,7 +510,41 @@
             logo: "fa fa-whatsapp",
             shareUrl: "whatsapp://send?text={url} {text}",
             countUrl: "",
-            shareIn: "self"
+            shareIn: "top"
+        },
+
+        viber: {
+            label: "Viber",
+            logo: "fa fa-volume-control-phone",
+            shareUrl: "viber://forward?text={url} {text}",
+            countUrl: "",
+            shareIn: "top"
+        },
+
+        messenger: {
+            label: "Share",
+            logo: "fa fa-commenting",
+            shareUrl: "fb-messenger://share?link={url}",
+            countUrl: "",
+            shareIn: "top"
+        },
+
+        telegram: {
+            label: "Telegram",
+            logo: "fa fa-telegram",
+            shareUrl: "tg://msg?text={url} {text}",
+            countUrl: "",
+            shareIn: "top"
+        },
+
+        vkontakte: {
+            label: "Like",
+            logo: "fa fa-vk",
+            shareUrl: "https://vk.com/share.php?url={url}&title={title}&description={text}",
+            countUrl: "https://vk.com/share.php?act=count&index=1&url={url}",
+            getCount: function(data) {
+                return parseInt(data.slice(15, -2).split(', ')[1]);
+            }
         },
 
         line: {
@@ -525,34 +554,11 @@
             countUrl: ""
         },
 
-        viber: {
-            label: "Viber",
-            logo: "fa fa-volume-control-phone",
-            shareUrl: "viber://forward?text={url} {text}",
-            countUrl: "",
-            shareIn: "self"
-        },
-
-        pocket: {
-            label: "Pocket",
-            logo: "fa fa-get-pocket",
-            shareUrl: "https://getpocket.com/save?url={url}&title={title}",
-            countUrl: ""
-        },
-
-        messenger: {
-            label: "Share",
-            logo: "fa fa-commenting",
-            shareUrl: "fb-messenger://share?link={url}",
-            countUrl: "",
-            shareIn: "self"
-        },
         rss: {
             label: "RSS",
             logo: "fa fa-rss",
             shareUrl: "/feeds/",
-            countUrl: "",
-            shareIn: "blank"
+            countUrl: ""
         }
 
     });
